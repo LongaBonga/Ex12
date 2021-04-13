@@ -1,5 +1,4 @@
-// Copyright 2021 GHA Test Team
-
+// Copyright Dobryaev 2021
 #ifndef INCLUDE_TIMEDDOOR_H_
 #define INCLUDE_TIMEDDOOR_H_
 
@@ -22,28 +21,28 @@ class Door {
 
 class DoorTimerAdapter : public TimerClient {
  private:
-  TimedDoor& door;
+  const TimedDoor& door;
  public:
-  explicit DoorTimerAdapter(TimedDoor&);
-  void Timeout();
+  explicit DoorTimerAdapter(const TimedDoor& _door);
+  void Timeout() override;
 };
 
 class TimedDoor : public Door {
- private:
-  DoorTimerAdapter * adapter;
   int iTimeout;
+  DoorTimerAdapter* adapter;
   bool opened;
  public:
   explicit TimedDoor(int);
-  bool isDoorOpened();
-  void unlock();
-  void lock();
-  void DoorTimeOut();
+  bool isDoorOpened() override;
+  void unlock() override;
+  void lock() override;
+  void DoorTimeOut() const;
   void throwState();
+  int getTime() const;
 };
 
 class Timer {
-  TimerClient *client;
+  TimerClient* client;
   void sleep(int);
  public:
   void tregister(int, TimerClient*);
