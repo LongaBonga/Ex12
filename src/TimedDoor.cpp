@@ -1,3 +1,4 @@
+// Copyright Dobryaev 2021
 #include<time.h>
 #include<string>
 #include "TimedDoor.h"
